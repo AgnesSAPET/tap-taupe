@@ -3,6 +3,8 @@ var random;
 var exchange;
 var time;
 var content = document.getElementById("content");
+var score = 0;
+var game;
 
 document.getElementById("button").addEventListener("click", ()=>{
     var table = document.createElement('div');
@@ -22,9 +24,13 @@ document.getElementById("button").addEventListener("click", ()=>{
     }
     content.appendChild(table);
 
-    time = setInterval(display, 2000); // car setTimeOut est pour un istant et setInterval pour une boucle
+    time = setInterval(nextTurn, 1000); // car setTimeOut est pour un istant et setInterval pour une boucle
 
     display();
+
+    nextTurn();
+
+    //game = setTimeout(display, 30000);
     
 });
 
@@ -36,16 +42,24 @@ function display(){
     exchange= document.querySelector('[data-id="'+random+'"]');
     exchange.style.backgroundImage = "url('./public/img/taupe.jpeg')";
     exchange.style.backgroundSize = "100% 100%";
+    document.getElementById("points").innerText=score;
+}
+
+function nextTurn() {
+    score--;
+    display();
 }
 
 content.addEventListener('click', (el)=>{
     el = el.target;
-    if(el.clicked == false){
-        console.log('-1');
-    }else if (el.dataset.id == random){
+    if (el.dataset.id == random){
         console.log('+1');
-        display();
+        score++;
     }else {
         console.log('-1');
+        score--;
     }  
+    clearInterval(time);
+    time = setInterval(nextTurn, 1000);
+    display();
 });
