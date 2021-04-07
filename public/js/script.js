@@ -4,7 +4,9 @@ var exchange;
 var time;
 var content = document.getElementById("content");
 var score = 0;
-var game;
+var generalTimer;
+var firstTime = 0;
+
 
 document.getElementById("button").addEventListener("click", ()=>{
     var table = document.createElement('div');
@@ -26,11 +28,11 @@ document.getElementById("button").addEventListener("click", ()=>{
 
     time = setInterval(nextTurn, 1000); // car setTimeOut est pour un istant et setInterval pour une boucle
 
+    generalTimer = setInterval(timer, 1000);
+
     display();
 
     nextTurn();
-
-    //game = setTimeout(display, 30000);
     
 });
 
@@ -50,6 +52,17 @@ function nextTurn() {
     display();
 }
 
+function timer() {
+    firstTime--;
+    if (firstTime==0) {
+        clearInterval(time)
+        clearInterval(generalTimer);
+        document.querySelector('.container').classList.add('none');
+        document.querySelector('#result').classList.remove('none');
+        document.querySelector('#resultPoints').innerHTML = score;
+    }
+}
+
 content.addEventListener('click', (el)=>{
     el = el.target;
     if (el.dataset.id == random){
@@ -63,3 +76,8 @@ content.addEventListener('click', (el)=>{
     time = setInterval(nextTurn, 1000);
     display();
 });
+
+function getScore() {
+    document.querySelector('#score').innerHTML = score;
+    document.querySelector('#time').innerHTML = time;
+}

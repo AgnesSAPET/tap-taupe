@@ -42,3 +42,7 @@ h1{
     top: 30px;
     right: 40px;
 }
+
+.none {
+    display: none!important;
+}
