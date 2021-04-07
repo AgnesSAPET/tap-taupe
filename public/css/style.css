@@ -17,7 +17,7 @@ body {
 #container {
     height: 800px;
     width: 800px;
-    border: 1px solid black;
+    border: 3px solid black;
     display: flex;
     flex-wrap: wrap;
 }
@@ -34,4 +34,10 @@ h1{
 #main{
     display: flex;
     justify-content: center;
+}
+
+#score{
+    position: absolute;
+    top: 30px;
+    right: 40px;
 }

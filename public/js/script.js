@@ -2,6 +2,7 @@ var choice;
 var random;
 var exchange;
 var time;
+var content = document.getElementById("content");
 
 document.getElementById("button").addEventListener("click", ()=>{
     var table = document.createElement('div');
@@ -19,35 +20,32 @@ document.getElementById("button").addEventListener("click", ()=>{
         cell.style.height = 100/choice + '%';
         table.appendChild(cell);
     }
-    document.getElementById("content").appendChild(table);
+    content.appendChild(table);
+
+    time = setInterval(display, 2000); // car setTimeOut est pour un istant et setInterval pour une boucle
 
     display();
     
-})
+});
 
 function display(){
+    if (random) {
+        exchange.style.backgroundImage = '';
+    }
     random = Math.floor(Math.random()* (choice*choice) + 1);
-    console.log(random);
     exchange= document.querySelector('[data-id="'+random+'"]');
     exchange.style.backgroundImage = "url('./public/img/taupe.jpeg')";
     exchange.style.backgroundSize = "100% 100%";
-    time = setTimeout(modify, 3000)
-}
-
-function modify() {
-    exchange.style.backgroundImage = 'none';
-    display();
 }
 
 content.addEventListener('click', (el)=>{
     el = el.target;
-    if(el.dataset.id == random){
-        console.log('+1')
-        exchange.style.backgroundImage = 'none';
+    if(el.clicked == false){
+        console.log('-1');
+    }else if (el.dataset.id == random){
+        console.log('+1');
         display();
     }else {
-        console.log('-1')
-    }
-    console.log(random);
-
-})
+        console.log('-1');
+    }  
+});
